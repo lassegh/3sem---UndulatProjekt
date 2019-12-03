@@ -3,13 +3,21 @@ import sys
 import os
 import time
 from subprocess import Popen
+from socket import *
+from datetime import datetime
 
+BROADCAST_TO_PORT = 7008
 GPIO.setmode(GPIO.BCM)
 GPIO_Trigger = 15
 GPIO_Echo = 14
 
 GPIO.setup(GPIO_Trigger, GPIO.OUT)
 GPIO.setup(GPIO_Echo, GPIO.IN)
+
+s = socket(AF_INET, SOCK_DGRAM)
+#s.bind(('', 14593))     # (ip, port)
+# no explicit bind: will bind to default IP + random port
+s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
 
 def distance():
     GPIO.output(GPIO_Trigger, True)
@@ -45,6 +53,8 @@ isPlaying = False
 while True:
     time.sleep(1)
     if distance() < satDistance:
+        data = "Video started: " + str(datetime.now())
+        s.sendto(bytes(data, "UTF-8"), ('192.168.24.255', BROADCAST_TO_PORT))
         while True:
             if not isPlaying:
                 os.system('omxplayer -b --aspect-mode fill --loop /home/pi/UndulatProject/sample.mp4 --orientation 360 &')
