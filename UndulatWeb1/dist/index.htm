@@ -10,7 +10,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
     
+    /* Remove the jumbotron's default bottom margin */ 
+    .jumbotron {
+      margin-bottom: 0;
+    }
+
+    </style>
 </head>
 <body>
     <!-- Sidehoved -->
@@ -24,9 +31,6 @@
         <a class="navbar-brand" href="#" style="padding-left: 50px">
             BirdBox   
         </a>
-    
-
-        
     </nav> 
     
     <br>
@@ -35,6 +39,7 @@
             <div class="row content">
               <div class="col-sm-3 sidenav hidden-xs">
                 <h2>Dashboard</h2>
+
                 <!--<ul class="nav nav-pills nav-stacked">
                   <li class="active"><a href="#section1">Dashboard</a></li>
                   <li><a href="#section2">Age</a></li>
@@ -126,13 +131,7 @@
 
 </div> 
     </div>
-<!-- Bottom bar -->
-<div style="position: fixed; bottom: 0; right: 0; width: 100%; background-color: darkgray">        
-        <div class="row">
-            <div class="col-sm-6" style="text-align: center; height: 25px"><a href="http://www.zealand.dk" style="color: black">Zealand - Sjællands Erhvervsakademi</a></div>
-            <div class="col-sm-6" style="text-align: center; height: 25px; color:black">Updated : 2019-09-19</div>
-        </div> 
-</div>
+
 
     <script src="bundle.js"></script>
 
