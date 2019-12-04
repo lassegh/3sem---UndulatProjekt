@@ -18,7 +18,7 @@ function alertFuncForMad() {
 
 function myStartFunctionForBur() {
   // Set the date we're counting down to
-  var countDownDate = new Date().getTime()+20000; //604800000; // Det sidste er en uge i milisekunder
+  var countDownDate = new Date().getTime()+345600000; // Det sidste er 4 dage i milisekunder
 
   // Update the count down every 1 second
   var x = setInterval(function() {
@@ -47,7 +47,7 @@ function myStartFunctionForBur() {
 
 function myStartFunctionForMad() {
   // Set the date we're counting down to
-  var countDownDate = new Date().getTime()+15000; //604800000; // Det sidste er en uge i milisekunder
+  var countDownDate = new Date().getTime()+604800000; // Det sidste er en uge i milisekunder
 
   // Update the count down every 1 second
   var x = setInterval(function() {
