@@ -134,10 +134,9 @@ function showAllRecords(): void {
 function printDataToAllRecordsDiv(records : ITimeStamp[]): void{
   videoLogs.innerHTML = "";
 
-  records.forEach((record: ITimeStamp) => {
+    let result = "";
+    records.forEach((record: ITimeStamp) => {
           
-      let result: string = "";
-
       result +=  "#" + record.id + ": " + record.time + "<br>";
       
       videoLogs.innerHTML = result;

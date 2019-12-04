@@ -2168,8 +2168,8 @@ function showAllRecords() {
 }
 function printDataToAllRecordsDiv(records) {
     videoLogs.innerHTML = "";
+    var result = "";
     records.forEach(function (record) {
-        var result = "";
         result += "#" + record.id + ": " + record.time + "<br>";
         videoLogs.innerHTML = result;
     });
