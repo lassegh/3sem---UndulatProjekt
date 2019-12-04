@@ -107,13 +107,14 @@ module.exports = __webpack_require__.p + "index.htm";
 var contentOfAllRecords = document.getElementById("demo");
 function alertFunc() {
     alert("Tid til at skifte bur!");
+    myStartFunction();
 }
 (function () {
     myStartFunction();
 })();
 function myStartFunction() {
     // Set the date we're counting down to
-    var countDownDate = new Date("Dec 5, 2019 10:19:25").getTime();
+    var countDownDate = new Date().getTime() + 20000; //604800000; // Det sidste er en uge i milisekunder
     // Update the count down every 1 second
     var x = setInterval(function () {
         // Get today's date and time
