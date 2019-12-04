@@ -2148,15 +2148,8 @@ function printDataToAllRecordsDiv(records) {
     videoLogs.innerHTML = "";
     records.forEach(function (record) {
         var result = "";
-        var node = document.createElement("DIV");
-        videoLogs.appendChild(node);
-        node.setAttribute("style", "margin-bottom:20px;background-color:#fff;border:2px solid transparent;border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05); border-color:#ddd");
-        var childElement = document.createElement("DIV");
-        node.appendChild(childElement);
-        childElement.setAttribute("style", "border-top-color:#ddd; padding-left: 50px; padding-bottom: 20px; padding-top: 20px");
-        childElement.setAttribute("id", "singleRecord");
         result += "Video started: " + record.time + "<br>";
-        childElement.innerHTML = result;
+        videoLogs.innerHTML = result;
     });
 }
 
