@@ -73,6 +73,3 @@ function myStartFunctionForMad() {
   }, 
   1000);
 }
-
-
-
