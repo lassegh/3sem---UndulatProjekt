@@ -1,3 +1,16 @@
+import axios, {
+  AxiosResponse,
+  AxiosError
+} from "../../node_modules/axios/index";
+
+interface ITimeStamp {
+  id: number;
+  time: string;
+}
+
+let baseUri: string = "http://lgwebservice.azurewebsites.net/api/starttime";
+let videoLogs : HTMLDivElement = <HTMLDivElement>document.getElementById("videoLogs");
+
 let contentOfAllRecords : HTMLDivElement = <HTMLDivElement>document.getElementById("cleanTimer");
 let contentOfTimerMad : HTMLDivElement = <HTMLDivElement>document.getElementById("feedTimer");
 function alertFuncForBur() {
@@ -11,7 +24,7 @@ function alertFuncForMad() {
 }
 
 (()=> {
-
+    showAllRecords();
     myStartFunctionForBur();
     myStartFunctionForMad();    
 })();
@@ -73,3 +86,44 @@ function myStartFunctionForMad() {
   }, 
   1000);
 }
+
+function showAllRecords(): void {
+  axios.get<ITimeStamp[]>(baseUri)
+          .then(function (response: AxiosResponse<ITimeStamp[]>): void {
+              printDataToAllRecordsDiv(response.data); 
+          })
+          .catch(function (error: AxiosError): void { // error in GET or in generateSuccess?
+              if (error.response) {
+                  videoLogs.innerHTML = error.message;
+  
+              } else { // something went wrong in the .then block?
+                videoLogs.innerHTML = error.message;
+              }
+          });
+          
+}
+
+function printDataToAllRecordsDiv(records : ITimeStamp[]): void{
+  videoLogs.innerHTML = "";
+
+  records.forEach((record: ITimeStamp) => {
+          
+      let result: string = "";
+      
+      var node = document.createElement("DIV");
+      videoLogs.appendChild(node);
+      node.setAttribute("style", "margin-bottom:20px;background-color:#fff;border:2px solid transparent;border-radius:4px;-webkit-box-shadow:0 1px 1px rgba(0,0,0,.05); border-color:#ddd");
+      var childElement = document.createElement("DIV");
+      node.appendChild(childElement);
+      childElement.setAttribute("style", "border-top-color:#ddd; padding-left: 50px; padding-bottom: 20px; padding-top: 20px");
+      childElement.setAttribute("id", "singleRecord");
+
+      result +=  "Video started: " + record.time + "<br>";
+      
+      childElement.innerHTML = result;
+      });
+}
+
+
+
+
