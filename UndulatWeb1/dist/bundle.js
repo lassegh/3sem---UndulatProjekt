@@ -2148,7 +2148,7 @@ function printDataToAllRecordsDiv(records) {
     videoLogs.innerHTML = "";
     records.forEach(function (record) {
         var result = "";
-        result += "Video started: " + record.time + "<br>";
+        result += "#" + record.id + ": " + record.time + "<br>";
         videoLogs.innerHTML = result;
     });
 }

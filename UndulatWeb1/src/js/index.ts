@@ -110,7 +110,7 @@ function printDataToAllRecordsDiv(records : ITimeStamp[]): void{
           
       let result: string = "";
 
-      result +=  "Video started: " + record.time + "<br>";
+      result +=  "#" + record.id + ": " + record.time + "<br>";
       
       videoLogs.innerHTML = result;
       });
