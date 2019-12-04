@@ -104,7 +104,8 @@ module.exports = __webpack_require__.p + "index.htm";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var contentOfAllRecords = document.getElementById("demo");
+var contentOfAllRecords = document.getElementById("cleanTimer");
+var contentOfTimerMad = document.getElementById("feedTimer");
 function alertFuncForBur() {
     alert("Tid til at skifte bur!");
     myStartFunctionForBur();
@@ -153,7 +154,7 @@ function myStartFunctionForMad() {
         var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         // Display the result in the element with id="demo"
-        contentOfAllRecords.innerHTML = days + "d " + hours + "h " + minutes + "m";
+        contentOfTimerMad.innerHTML = days + "d " + hours + "h " + minutes + "m";
         // If the count down is finished, write some text
         if (distance < 0) {
             clearInterval(x);

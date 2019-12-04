@@ -1,5 +1,5 @@
-let contentOfAllRecords : HTMLDivElement = <HTMLDivElement>document.getElementById("demo");
-
+let contentOfAllRecords : HTMLDivElement = <HTMLDivElement>document.getElementById("cleanTimer");
+let contentOfTimerMad : HTMLDivElement = <HTMLDivElement>document.getElementById("feedTimer");
 function alertFuncForBur() {
   alert("Tid til at skifte bur!");
   myStartFunctionForBur();
@@ -63,7 +63,7 @@ function myStartFunctionForMad() {
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
     // Display the result in the element with id="demo"
-    contentOfAllRecords.innerHTML = days + "d " + hours + "h " + minutes + "m";
+    contentOfTimerMad.innerHTML = days + "d " + hours + "h " + minutes + "m";
 
     // If the count down is finished, write some text
     if (distance < 0) {
