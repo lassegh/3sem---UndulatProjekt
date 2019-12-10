@@ -53,7 +53,8 @@ isPlaying = False
 while True:
     time.sleep(1)
     if distance() < satDistance:
-        data = "Video started: " + str(datetime.now())
+        data = str(datetime.now())
+        data = data[:-10]
         s.sendto(bytes(data, "UTF-8"), ('192.168.24.255', BROADCAST_TO_PORT))
         while True:
             if not isPlaying:
