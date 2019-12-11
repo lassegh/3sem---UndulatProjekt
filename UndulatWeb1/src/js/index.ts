@@ -24,7 +24,7 @@ function alertFuncForMad() {
 }
 
 (()=> {
-    showAllRecords();
+    showAllTimeStamps();
     myStartFunctionForBur();
     myStartFunctionForMad();  
     autoReloadVideoData();  
@@ -108,17 +108,17 @@ function autoReloadVideoData() {
     // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
-      showAllRecords();
+      showAllTimeStamps();
       autoReloadVideoData();
     }
   }, 
   1000);
 }
 
-function showAllRecords(): void {
+function showAllTimeStamps(): void {
   axios.get<ITimeStamp[]>(baseUri)
           .then(function (response: AxiosResponse<ITimeStamp[]>): void {
-              printDataToAllRecordsDiv(response.data); 
+              printDataToAllTimeStampsDiv(response.data); 
           })
           .catch(function (error: AxiosError): void { // error in GET or in generateSuccess?
               if (error.response) {
@@ -131,7 +131,7 @@ function showAllRecords(): void {
           
 }
 
-function printDataToAllRecordsDiv(records : ITimeStamp[]): void{
+function printDataToAllTimeStampsDiv(records : ITimeStamp[]): void{
   videoLogs.innerHTML = "";
 
     let result = "";
