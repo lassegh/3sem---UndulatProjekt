@@ -8,11 +8,23 @@ interface ITimeStamp {
   time: string;
 }
 
+interface IWeather {
+
+}
+
 let baseUri: string = "http://lgwebservice.azurewebsites.net/api/starttime";
+let baseUrlForWeather = "https://www.yr.no/place/Denmark/Sjælland/Roskilde/varsel.xml"
 let videoLogs : HTMLDivElement = <HTMLDivElement>document.getElementById("videoLogs");
+
+let xmlString : string;
+let parser : DOMParser;
+let xmlDoc;
+parser = new DOMParser();
 
 let contentOfAllRecords : HTMLDivElement = <HTMLDivElement>document.getElementById("cleanTimer");
 let contentOfTimerMad : HTMLDivElement = <HTMLDivElement>document.getElementById("feedTimer");
+let contentTemp : HTMLDivElement = <HTMLDivElement>document.getElementById("temp");
+
 function alertFuncForBur() {
   alert("Tid til at skifte bur!");
   myStartFunctionForBur();
@@ -28,6 +40,7 @@ function alertFuncForMad() {
     myStartFunctionForBur();
     myStartFunctionForMad();  
     autoReloadVideoData();  
+    showWeather();
 })();
 
 function myStartFunctionForBur() {
@@ -141,6 +154,24 @@ function printDataToAllTimeStampsDiv(records : ITimeStamp[]): void{
       
       videoLogs.innerHTML = result;
       });
+}
+
+function showWeather(): void {
+  axios.get<string>(baseUrlForWeather)
+          .then(function (response: AxiosResponse<string>): void {
+              xmlString = response.data; 
+              xmlDoc = parser.parseFromString(xmlString,"text/xml");
+              contentTemp.innerHTML = xmlDoc.getElementsByTagName("temperature")[0].childNodes[0].nodeValue;
+          })
+          .catch(function (error: AxiosError): void { // error in GET or in generateSuccess?
+              if (error.response) {
+                  contentTemp.innerHTML = error.message;
+  
+              } else { // something went wrong in the .then block?
+                contentTemp.innerHTML = error.message;
+              }
+          });
+          
 }
 
 
