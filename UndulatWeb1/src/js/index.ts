@@ -8,18 +8,10 @@ interface ITimeStamp {
   time: string;
 }
 
-interface IWeather {
-
-}
-
 let baseUri: string = "http://lgwebservice.azurewebsites.net/api/starttime";
-let baseUrlForWeather = "https://www.yr.no/place/Denmark/Sjælland/Roskilde/varsel.xml"
-let videoLogs : HTMLDivElement = <HTMLDivElement>document.getElementById("videoLogs");
+let baseUrlForWeather = "http://api.openweathermap.org/data/2.5/weather?q=roskilde&APPID=1a38fe1f59581dcfa8c2121a26de6b86";
 
-let xmlString : string;
-let parser : DOMParser;
-let xmlDoc;
-parser = new DOMParser();
+let videoLogs : HTMLDivElement = <HTMLDivElement>document.getElementById("videoLogs");
 
 let contentOfAllRecords : HTMLDivElement = <HTMLDivElement>document.getElementById("cleanTimer");
 let contentOfTimerMad : HTMLDivElement = <HTMLDivElement>document.getElementById("feedTimer");
@@ -157,20 +149,19 @@ function printDataToAllTimeStampsDiv(records : ITimeStamp[]): void{
 }
 
 function showWeather(): void {
-  axios.get<string>(baseUrlForWeather)
-          .then(function (response: AxiosResponse<string>): void {
-              xmlString = response.data; 
-              xmlDoc = parser.parseFromString(xmlString,"text/xml");
-              contentTemp.innerHTML = xmlDoc.getElementsByTagName("temperature")[0].childNodes[0].nodeValue;
-          })
-          .catch(function (error: AxiosError): void { // error in GET or in generateSuccess?
-              if (error.response) {
-                  contentTemp.innerHTML = error.message;
-  
-              } else { // something went wrong in the .then block?
-                contentTemp.innerHTML = error.message;
-              }
-          });
+
+  axios.get(baseUrlForWeather)
+  .then(function(response: AxiosResponse): void {
+    let newData:number = response.data["main"]["temp"]; 
+    contentTemp.innerHTML = String(newData-273.15).slice(0,-14)+" grader c";
+  })
+  .catch(function (error: AxiosError): void {
+      if (error.response) {
+          contentTemp.innerHTML = error.message;
+      } else {
+        contentTemp.innerHTML = error.message;
+      }
+  });
           
 }
 

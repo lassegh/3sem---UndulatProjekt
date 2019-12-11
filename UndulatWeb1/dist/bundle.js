@@ -2070,9 +2070,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0__);
 
 var baseUri = "http://lgwebservice.azurewebsites.net/api/starttime";
+var baseUrlForWeather = "http://api.openweathermap.org/data/2.5/weather?q=roskilde&APPID=1a38fe1f59581dcfa8c2121a26de6b86";
 var videoLogs = document.getElementById("videoLogs");
 var contentOfAllRecords = document.getElementById("cleanTimer");
 var contentOfTimerMad = document.getElementById("feedTimer");
+var contentTemp = document.getElementById("temp");
 function alertFuncForBur() {
     alert("Tid til at skifte bur!");
     myStartFunctionForBur();
@@ -2086,6 +2088,7 @@ function alertFuncForMad() {
     myStartFunctionForBur();
     myStartFunctionForMad();
     autoReloadVideoData();
+    showWeather();
 })();
 function myStartFunctionForBur() {
     // Set the date we're counting down to
@@ -2172,6 +2175,21 @@ function printDataToAllTimeStampsDiv(records) {
     records.forEach(function (record) {
         result += "#" + record.id + ": " + record.time + "<br>";
         videoLogs.innerHTML = result;
+    });
+}
+function showWeather() {
+    _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.get(baseUrlForWeather)
+        .then(function (response) {
+        var newData = response.data["main"]["temp"];
+        contentTemp.innerHTML = String(newData - 273.15).slice(0, -14) + " grader c";
+    })
+        .catch(function (error) {
+        if (error.response) {
+            contentTemp.innerHTML = error.message;
+        }
+        else {
+            contentTemp.innerHTML = error.message;
+        }
     });
 }
 
