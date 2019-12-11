@@ -42,6 +42,10 @@ namespace UITest
             wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
             IWebElement videoLog = wait.Until<IWebElement>(d => d.FindElement(By.Id("videoLogs")));
             Assert.IsTrue(videoLog.Text.Contains("#38: 2019-12-04 13:23"));
+            
+            wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+            IWebElement temperature = wait.Until<IWebElement>(d => d.FindElement(By.Id("temp")));
+            Assert.IsTrue(temperature.Text.Contains(" grader c"));
         }
 
     }

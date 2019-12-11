@@ -13,108 +13,58 @@ let baseUrlForWeather = "http://api.openweathermap.org/data/2.5/weather?q=roskil
 
 let videoLogs : HTMLDivElement = <HTMLDivElement>document.getElementById("videoLogs");
 
-let contentOfAllRecords : HTMLDivElement = <HTMLDivElement>document.getElementById("cleanTimer");
+let contentForCleanTimer : HTMLDivElement = <HTMLDivElement>document.getElementById("cleanTimer");
 let contentOfTimerMad : HTMLDivElement = <HTMLDivElement>document.getElementById("feedTimer");
 let contentTemp : HTMLDivElement = <HTMLDivElement>document.getElementById("temp");
 
-function alertFuncForBur() {
-  alert("Tid til at skifte bur!");
-  myStartFunctionForBur();
-}
-
-function alertFuncForMad() {
-  alert("Tid at give Pepsi mad og drikke");
-  myStartFunctionForMad();
-}
-
 (()=> {
     showAllTimeStamps();
-    myStartFunctionForBur();
-    myStartFunctionForMad();  
-    autoReloadVideoData();  
+    TimerWithAlert(contentForCleanTimer,345600000,"Tid til at skifte bur!");
+    TimerWithAlert(contentOfTimerMad,604800000,"Tid at give Pepsi mad og drikke");
+    autoReloadData();  
     showWeather();
 })();
 
-function myStartFunctionForBur() {
+function TimerWithAlert(divTag: HTMLDivElement, milisecondsToRun: number, textToAlert:string) {
   // Set the date we're counting down to
-  var countDownDate = new Date().getTime()+345600000; // Det sidste er 4 dage i milisekunder
+  var countDownDate = new Date().getTime()+milisecondsToRun;
 
-  // Update the count down every 1 second
   var x = setInterval(function() {
     // Get today's date and time
     var now = new Date().getTime();
 
-    // Find the distance between now and the count down date
     var distance = countDownDate - now;
 
-    // Time calculations for days, hours, minutes and seconds
     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-    // Display the result in the element with id="demo"
-    contentOfAllRecords.innerHTML = days + "d " + hours + "h " + minutes + "m";
+    divTag.innerHTML = days + "d " + hours + "h " + minutes + "m";
 
-    // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
-      alertFuncForBur()
+      (()=> {
+        alert(textToAlert);
+        TimerWithAlert(divTag,milisecondsToRun,textToAlert);
+      })();
     }
   }, 
   1000);
 }
 
-function myStartFunctionForMad() {
-  // Set the date we're counting down to
-  var countDownDate = new Date().getTime()+604800000; // Det sidste er en uge i milisekunder
+function autoReloadData() {
+  var countDownDate = new Date().getTime()+10000;
 
-  // Update the count down every 1 second
   var x = setInterval(function() {
-    // Get today's date and time
     var now = new Date().getTime();
 
-    // Find the distance between now and the count down date
     var distance = countDownDate - now;
 
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-    // Display the result in the element with id="demo"
-    contentOfTimerMad.innerHTML = days + "d " + hours + "h " + minutes + "m";
-
-    // If the count down is finished, write some text
-    if (distance < 0) {
-      clearInterval(x);
-      alertFuncForMad()
-    }
-  }, 
-  1000);
-}
-
-function autoReloadVideoData() {
-  // Set the date we're counting down to
-  var countDownDate = new Date().getTime()+10000; // Det sidste er en uge i milisekunder
-
-  // Update the count down every 1 second
-  var x = setInterval(function() {
-    // Get today's date and time
-    var now = new Date().getTime();
-
-    // Find the distance between now and the count down date
-    var distance = countDownDate - now;
-
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-    // If the count down is finished, write some text
     if (distance < 0) {
       clearInterval(x);
       showAllTimeStamps();
-      autoReloadVideoData();
+      showWeather();
+      autoReloadData();
     }
   }, 
   1000);
@@ -123,33 +73,23 @@ function autoReloadVideoData() {
 function showAllTimeStamps(): void {
   axios.get<ITimeStamp[]>(baseUri)
           .then(function (response: AxiosResponse<ITimeStamp[]>): void {
-              printDataToAllTimeStampsDiv(response.data); 
+            videoLogs.innerHTML = "";
+            let result = "";
+            response.data.forEach((record: ITimeStamp) => { 
+              result +=  "#" + record.id + ": " + record.time + "<br>";
+              videoLogs.innerHTML = result;
+              }); 
           })
-          .catch(function (error: AxiosError): void { // error in GET or in generateSuccess?
+          .catch(function (error: AxiosError): void {
               if (error.response) {
                   videoLogs.innerHTML = error.message;
-  
-              } else { // something went wrong in the .then block?
+              } else {
                 videoLogs.innerHTML = error.message;
               }
-          });
-          
-}
-
-function printDataToAllTimeStampsDiv(records : ITimeStamp[]): void{
-  videoLogs.innerHTML = "";
-
-    let result = "";
-    records.forEach((record: ITimeStamp) => {
-          
-      result +=  "#" + record.id + ": " + record.time + "<br>";
-      
-      videoLogs.innerHTML = result;
-      });
+          });         
 }
 
 function showWeather(): void {
-
   axios.get(baseUrlForWeather)
   .then(function(response: AxiosResponse): void {
     let newData:number = response.data["main"]["temp"]; 
@@ -161,8 +101,7 @@ function showWeather(): void {
       } else {
         contentTemp.innerHTML = error.message;
       }
-  });
-          
+  }); 
 }
 
 
