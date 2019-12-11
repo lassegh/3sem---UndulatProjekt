@@ -114,6 +114,7 @@ function autoReloadVideoData() {
     if (distance < 0) {
       clearInterval(x);
       showAllTimeStamps();
+      showWeather();
       autoReloadVideoData();
     }
   }, 
