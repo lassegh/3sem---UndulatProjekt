@@ -2082,7 +2082,7 @@ function alertFuncForMad() {
     myStartFunctionForMad();
 }
 (function () {
-    showAllRecords();
+    showAllTimeStamps();
     myStartFunctionForBur();
     myStartFunctionForMad();
     autoReloadVideoData();
@@ -2147,15 +2147,15 @@ function autoReloadVideoData() {
         // If the count down is finished, write some text
         if (distance < 0) {
             clearInterval(x);
-            showAllRecords();
+            showAllTimeStamps();
             autoReloadVideoData();
         }
     }, 1000);
 }
-function showAllRecords() {
+function showAllTimeStamps() {
     _node_modules_axios_index__WEBPACK_IMPORTED_MODULE_0___default.a.get(baseUri)
         .then(function (response) {
-        printDataToAllRecordsDiv(response.data);
+        printDataToAllTimeStampsDiv(response.data);
     })
         .catch(function (error) {
         if (error.response) {
@@ -2166,7 +2166,7 @@ function showAllRecords() {
         }
     });
 }
-function printDataToAllRecordsDiv(records) {
+function printDataToAllTimeStampsDiv(records) {
     videoLogs.innerHTML = "";
     var result = "";
     records.forEach(function (record) {
