@@ -15,8 +15,6 @@ GPIO.setup(GPIO_Trigger, GPIO.OUT)
 GPIO.setup(GPIO_Echo, GPIO.IN)
 
 s = socket(AF_INET, SOCK_DGRAM)
-#s.bind(('', 14593))     # (ip, port)
-# no explicit bind: will bind to default IP + random port
 s.setsockopt(SOL_SOCKET, SO_BROADCAST, 1)
 
 def distance():
@@ -28,21 +26,15 @@ def distance():
     StartTime = time.time()
     StopTime = time.time()
 
-    #Save startTime
     while GPIO.input(GPIO_Echo) == 0:
         StartTime = time.time()
     
-    #Save time of arrival
     while GPIO.input(GPIO_Echo) == 1:
         StopTime = time.time()
 
-    # Time difference between start and arrival
     TimeElapsed = StopTime - StartTime
 
-    # Multiply with the sonic speed 34300 cm / sec
-    # and divide by two (frem og tilbage)
     distance = (TimeElapsed * 34300 ) / 2
-    #print(distance)
     return distance
 
 
