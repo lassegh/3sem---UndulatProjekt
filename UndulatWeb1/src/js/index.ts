@@ -19,10 +19,10 @@ let contentTemp : HTMLDivElement = <HTMLDivElement>document.getElementById("temp
 
 (()=> {
     showAllTimeStamps();
+    showWeather();
     TimerWithAlert(contentForCleanTimer,345600000,"Tid til at skifte bur!");
     TimerWithAlert(contentOfTimerMad,604800000,"Tid at give Pepsi mad og drikke");
     autoReloadData();  
-    showWeather();
 })();
 
 function TimerWithAlert(divTag: HTMLDivElement, milisecondsToRun: number, textToAlert:string) {
@@ -94,6 +94,7 @@ function showWeather(): void {
   .then(function(response: AxiosResponse): void {
     let newData:number = response.data["main"]["temp"]; 
     contentTemp.innerHTML = String(newData-273.15).slice(0,-14)+" grader c";
+    console.log(response.data);
   })
   .catch(function (error: AxiosError): void {
       if (error.response) {
