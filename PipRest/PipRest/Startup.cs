@@ -34,7 +34,7 @@ namespace PipRest
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseFileServer();
             app.UseMvc();
         }
     }

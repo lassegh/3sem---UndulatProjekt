@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BirdBox</title>
+    <link rel = "icon" type = "image/png" href = "./downs/Peter.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <style>
+    
+    /* Remove the jumbotron's default bottom margin */ 
+    .jumbotron {
+      margin-bottom: 0;
+    }
+
+    </style>
+</head>
+<body>
+    <!-- Sidehoved -->
+    <div class="jumbotron text-center">
+        <h1>BirdBox</h1>
+        <h5>A Bird Management Tool</h5>
+    </div>
+
+    <!-- Menu bar -->
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <!--Logo-->
+        <a class="navbar-brand" href="#">
+            Dashboard   
+        </a>
+    </nav> 
+    
+    <br>
+    <br>
+
+
+    
+    <div class="container-fluid" style="margin-left: -50px;">
+            <div class="row content">
+                <div class="col-sm-3 sidenav hidden-xs">
+                    <h2 style="padding-left: 185px; padding-top: 0;">Menu</h2>
+                    <br>
+
+                    <div class="list-group" style="padding-right: 100px; text-align: center; padding-top: 0px; margin-left: 100px;">
+
+                        <a class="list-group-item list-group-item-action" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
+                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+                        <a class="list-group-item list-group-item-action active" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Dashboard</a>
+                        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+                        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+                    </div>
+                </div>
+            
+        
+             
+    
+             
+    <!-- Grid for box data -->         
+    <div class="col-sm-9" style="margin-top: -25px;">
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <!-- Row 1 -->
+    <div class="row">
+        <div class="col-xl-3 col-md-6 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Rengøring af bur</div>
+                        <div id="cleanTimer" class="h5 mb-0 font-weight-normal text-gray-800"></div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Fodring & Vand</div>
+                            <div id="feedTimer" class="h5 mb-0 font-weight-normal text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            <div class="col-xl-3 col-md-6 mb-4">
+                    <div class="card border-left-primary shadow h-100 py-2">
+                        <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Temperatur</div>
+                                <div id="temp" class="h5 mb-0 font-weight-normal text-gray-800"></div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+    <!-- Row 2 -->
+    <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Video Historik</div>
+                            <div id="videoLogs" class="h5 mb-0 font-weight-normal text-gray-800"></div>
+                        </div>
+                        <div class="col-auto">
+                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+</div> 
+    </div>
+
+
+    <script src="bundle.js"></script>
+
+</body>
+</html>
